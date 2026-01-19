@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormGroup, FormControl} from '@angular/forms';
+import { noSpacesValidator } from './validateInput';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 export class Login {
   profileForm = new FormGroup({
     username: new FormControl('',[Validators.required,Validators.email]),
-    password: new FormControl('',Validators.required),
+    password: new FormControl('',[Validators.required,noSpacesValidator()]),
   })
   loading = false;
   handleSubmit(){
