@@ -17,7 +17,20 @@ body {
   font-family: 'Be Vietnam Pro', sans-serif;
 }
 .login {
-  display: flex;
+  display:flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.input-rows {
+  margin-bottom: 5px;
+  display:grid;
+  grid-template-columns: 90px 150px;
+  align-items: center;
+}
+
+.submit-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
