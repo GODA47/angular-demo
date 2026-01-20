@@ -1,16 +1,22 @@
 import {Component} from '@angular/core';
-import {Login} from './login';
-import { TablePageComponent } from './loginTable';
-@Component({
+import {Login} from './login'; 
+import { TablePageComponent } from './loginTable'; 
+import { bootstrapApplication } from '@angular/platform-browser'; 
+import { provideRouter, Routes,RouterOutlet } from '@angular/router'; 
+
+@Component({ 
   selector: 'app-root',
-  styles: ``,
-  template: `<app-login />`,
-  imports: [Login],
-})
-// @Component({
-//   selector:'app-root',
-//   template: `<app-login-table />`,
-//   imports: [TablePageComponent]
-// })
-export class App {
-}
+  styles: '', 
+  template: `<router-outlet />`,
+   imports:[RouterOutlet], 
+}) 
+export class App {} 
+const routes: Routes = [ 
+  {path: '', redirectTo: 'login', pathMatch: 'full'}, 
+  {path: 'login',component:Login}, 
+  {path: 'table',component:TablePageComponent} 
+]; 
+
+bootstrapApplication(App, { 
+  providers: [provideRouter(routes)] 
+});

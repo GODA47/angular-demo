@@ -26,6 +26,7 @@ import { Component,OnInit } from "@angular/core";
                 </tbody>
             </table>
         }
+        <button routerLink="/login">Back to Login</button>
         
     `,
 })

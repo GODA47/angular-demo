@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
         <button type="submit" [disabled]="!profileForm.valid" [title]="profileForm.valid ? '' : 'LOOOLLLLLL'">
           Submit
         </button>
+        <button routerLink="/table">View Table</button>
       </div>
     </div>
     <p>{{profileForm.value.username}}</p>
@@ -58,7 +59,7 @@ export class Login {
     existing.push(newEntry);
     localStorage.setItem('loginData', JSON.stringify(existing));
 
-    this.router.navigate(['/table']);
+    // this.router.navigate(['/table']);
     // alert(this.profileForm.value.username + '|' + this.profileForm.value.password);
   }
 }
