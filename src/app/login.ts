@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormGroup, FormControl} from '@angular/forms';
 import { noSpacesValidator } from './validateInput';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,12 +31,34 @@ import { noSpacesValidator } from './validateInput';
 })
 export class Login {
   profileForm = new FormGroup({
-    username: new FormControl('',[Validators.required,Validators.email]),
+    // username: new FormControl('',[Validators.required,Validators.email]),
+    username: new FormControl('',[Validators.required]),
     password: new FormControl('',[Validators.required,noSpacesValidator()]),
   })
+  constructor(private router: Router){}
+
   loading = false;
   handleSubmit(){
     this.loading = true;
-    alert(this.profileForm.value.username + '|' + this.profileForm.value.password);
+    if(this.profileForm.invalid){
+      return;
+    }
+
+    const formValue = this.profileForm.value;
+    const stored = localStorage.getItem('loginTable');
+    const existing = stored ? JSON.parse(stored) : [];
+
+    const newEntry = {
+      id: Number(existing.length)+1,
+      username: formValue.username,
+      password: formValue.password,
+      createdAt: new Date().toISOString()
+    }
+    
+    existing.push(newEntry);
+    localStorage.setItem('loginData', JSON.stringify(existing));
+
+    this.router.navigate(['/table']);
+    // alert(this.profileForm.value.username + '|' + this.profileForm.value.password);
   }
 }
