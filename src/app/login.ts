@@ -2,14 +2,14 @@ import {Component} from '@angular/core';
 import {ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormGroup, FormControl} from '@angular/forms';
 import { noSpacesValidator } from './validateInput';
-import { Router } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   template: `
     <div class="login"> 
       <p>Demo Login Page</p>
-      <form [formGroup]="profileForm" {ngSubmit}= "handleSubmit()">
+      <form [formGroup]="profileForm" (ngSubmit)= "handleSubmit()">
         <div class="input-rows">
           <label for="username">Username: </label>
             <input id="username" type="text" formControlName="username" />
@@ -18,17 +18,19 @@ import { Router } from '@angular/router';
           <label for="password">Password: </label>
           <input id="password" type="password" formControlName="password" />
         </div>
+        <div class="submit-button">
+          <button type="submit" 
+                  [disabled]="!profileForm.valid" 
+                  [title]="profileForm.valid ? '' : 'LOOOLLLLLL'">
+            Submit
+          </button>
+        </div>
       </form>
-      <div class="submit-button">
-        <button type="submit" [disabled]="!profileForm.valid" [title]="profileForm.valid ? '' : 'LOOOLLLLLL'">
-          Submit
-        </button>
-        <button routerLink="/table">View Table</button>
-      </div>
+      <button type="button" routerLink="/table">View Table</button>
     </div>
     <p>{{profileForm.value.username}}</p>
   `,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
 })
 export class Login {
   profileForm = new FormGroup({
@@ -40,6 +42,7 @@ export class Login {
 
   loading = false;
   handleSubmit(){
+    console.log("handleSubmit");
     this.loading = true;
     if(this.profileForm.invalid){
       return;
@@ -55,9 +58,10 @@ export class Login {
       password: formValue.password,
       createdAt: new Date().toISOString()
     }
-    
+    console.log(newEntry);
     existing.push(newEntry);
-    localStorage.setItem('loginData', JSON.stringify(existing));
+    console.log(existing);
+    localStorage.setItem('loginTable', JSON.stringify(existing));
 
     // this.router.navigate(['/table']);
     // alert(this.profileForm.value.username + '|' + this.profileForm.value.password);

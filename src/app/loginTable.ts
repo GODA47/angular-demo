@@ -1,4 +1,5 @@
 import { Component,OnInit } from "@angular/core";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-login-table',
@@ -26,15 +27,16 @@ import { Component,OnInit } from "@angular/core";
                 </tbody>
             </table>
         }
-        <button routerLink="/login">Back to Login</button>
+        <button type="button" routerLink="/login">Back to Login</button>
         
     `,
+    imports:[RouterLink],
 })
 
 export class TablePageComponent implements OnInit {
     rows: any[] = [];
     ngOnInit(){
-        const stored = localStorage.getItem('loginData');
+        const stored = localStorage.getItem('loginTable');
         this.rows = stored ? JSON.parse(stored):[];
     }
 }

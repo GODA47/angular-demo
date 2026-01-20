@@ -7,16 +7,9 @@ import { provideRouter, Routes,RouterOutlet } from '@angular/router';
 @Component({ 
   selector: 'app-root',
   styles: '', 
+  standalone:true,
   template: `<router-outlet />`,
-   imports:[RouterOutlet], 
+  // template: `<app-login />`,
+  imports:[RouterOutlet], 
 }) 
 export class App {} 
-const routes: Routes = [ 
-  {path: '', redirectTo: 'login', pathMatch: 'full'}, 
-  {path: 'login',component:Login}, 
-  {path: 'table',component:TablePageComponent} 
-]; 
-
-bootstrapApplication(App, { 
-  providers: [provideRouter(routes)] 
-});
