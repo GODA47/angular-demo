@@ -1,40 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary-color: #605dc8;
   --secondary-color: #8b89e6;
   --accent-color: #e8e7fa;
   --shadow-color: #e8e8e8;
 }
-
-button.primary {
-  padding: 10px;
-  border: solid 1px var(--primary-color);
-  background: var(--primary-color);
-  color: white;
-  border-radius: 8px;
-}
-body {
-  font-family: 'Be Vietnam Pro', sans-serif;
+@layer base{
+  button {
+    @apply px-2 py-1.5 text-black bg-gray-200 rounded-lg border border-black
+           active:bg-gray-400
+           disabled:bg-gray-100
+           disabled:text-gray-400
+           disabled:border-gray-300
+           disabled:cursor-not-allowed;
+  }
+  body {
+    font-family: "Be Vietnam Pro", sans-serif;
+  }
 }
 .login {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @apply flex flex-col justify-center items-center;
 }
-
 .input-rows {
-  margin-bottom: 5px;
-  display:grid;
-  grid-template-columns: 90px 150px;
-  align-items: center;
+  @apply grid grid-cols-[90px_150px] items-center mb-[5px];
+}
+.submit-button {
+  @apply flex flex-col justify-center items-center my-[5px];
 }
 
-.submit-button {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+@import "tailwindcss"

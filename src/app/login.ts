@@ -19,7 +19,8 @@ import { Router,RouterLink } from '@angular/router';
           <input id="password" type="password" formControlName="password" />
         </div>
         <div class="submit-button">
-          <button type="submit" 
+          <button 
+                  type="submit" 
                   [disabled]="!profileForm.valid" 
                   [title]="profileForm.valid ? '' : 'LOOOLLLLLL'">
             Submit
