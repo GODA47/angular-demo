@@ -1,6 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 :root {
@@ -11,7 +9,7 @@
 }
 @layer base{
   button {
-    @apply px-2 py-1.5 text-black bg-gray-200 rounded-lg border border-black
+    @apply px-2 py-1.5 text-black bg-gray-100 rounded-lg border border-black
            active:bg-gray-400
            disabled:bg-gray-100
            disabled:text-gray-400
@@ -20,6 +18,19 @@
   }
   body {
     font-family: "Be Vietnam Pro", sans-serif;
+  }
+}
+@layer components {
+  .nav-item {
+    @apply font-bold p-3 pl-6 
+          text-amber-300
+          hover:bg-violet-800 
+          /* hover:text-violet-800  */
+          cursor-pointer;
+  }
+  .nav-item.active {
+    @apply bg-amber-300 
+          text-violet-900;
   }
 }
 .login {

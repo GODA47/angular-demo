@@ -9,7 +9,6 @@ import { provideRouter, Routes,RouterOutlet } from '@angular/router';
   styles: '', 
   standalone:true,
   template: `<router-outlet />`,
-  // template: `<app-login />`,
   imports:[RouterOutlet], 
 }) 
 export class App {} 

@@ -4,31 +4,32 @@ import { RouterLink } from "@angular/router";
 @Component({
     selector: 'app-login-table',
     template: `
-        @if (rows.length){
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @for(row of rows; track row.id){
+        <div class = "flex flex-col justify-center items-center">
+            @if (rows.length){
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ row.id }}</td>
-                            <td>{{ row.username }}</td>
-                            <td>{{ row.password }}</td>
-                            <td>{{ row.createdAt }}</td>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Created At</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        <button type="button" routerLink="/login">Back to Login</button>
-        
+                    </thead>
+
+                    <tbody>
+                        @for(row of rows; track row.id){
+                            <tr>
+                                <td>{{ row.id }}</td>
+                                <td>{{ row.username }}</td>
+                                <td>{{ row.password }}</td>
+                                <td>{{ row.createdAt }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            <button type="button" routerLink="/login">Back to Login</button>
+        </div>
     `,
     imports:[RouterLink],
 })
