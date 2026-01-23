@@ -22,7 +22,7 @@
 }
 @layer components {
   .nav-item {
-    @apply font-bold p-3 pl-6 
+    @apply font-semibold p-3 pl-6 
           text-amber-300
           hover:bg-violet-800 
           /* hover:text-violet-800  */
@@ -41,6 +41,10 @@
 }
 .submit-button {
   @apply flex flex-col justify-center items-center my-[5px];
+}
+
+@theme {
+  --color-gold: #bfa14e;
 }
 
 @import "tailwindcss"
