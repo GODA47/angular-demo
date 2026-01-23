@@ -124,16 +124,6 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td class="align-top pl-2"><input type="checkbox" class="w-3 h-3 cursor-pointer"></td>
-                                    <td class="text-black text-left align-top">Entity ID</td>
-                                    <th class="text-black text-left align-top">Customer Number</th>
-                                    <th class="text-black text-left align-top">Registration Number</th>
-                                    <th class="text-black text-left align-top">Long Name</th>
-                                    <th class="text-black text-left align-top">Short Name</th>
-                                    <th class="text-black text-left align-top">isic</th>
-                                    <th class="text-black text-left align-top">Primary Stock Code</th>
-                                </tr>
                                 @for(row of rows; track row.id){
                                     <tr class="border-b border-gray-300">
                                         <td class="align-top pl-2"><input type="checkbox" class="w-3 h-3 cursor-pointer"></td>
