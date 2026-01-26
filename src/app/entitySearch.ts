@@ -10,7 +10,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
         <div class="flex flex-col h-screen">
             <!-- Fixed Header -->
             <header class="overflow-x-hidden bg-purple-900 p-4 fixed top-0 left-0 right-0 z-50 flex items-center">
-                <h2 class="whitespace-nowrap text-2xl font-bold text-amber-300 ml-4">Borrower Risk Rating (BRR)</h2>
+                <h2 class="whitespace-nowrap text-2xl font-bold text-white ml-4">Borrower Risk Rating (BRR)</h2>
                 <div class="ml-auto mr-0 flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:border-2 hover:border-purple-700">
                     <span class="text-yellow-400 text-lg">👤</span>
                 </div>
@@ -36,7 +36,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                 <!-- Scrollable Content Area -->
                 <main class="ml-64 flex-1 overflow-y-auto flex items-start p-6">
                     <div 
-                        class="bg-white rounded-lg shadow-2xl p-2 shrink-0 w-300 h-full"
+                        class="bg-white rounded-lg shadow-2xl p-2 shrink-0 w-300 h-fit"
                     >
                         <div class="bg-gray-300 flex items-center mb-4">
                             <h2 class="text-purple-800 text-xl font-bold p-1">Search Criteria</h2>
@@ -47,7 +47,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                         <form [formGroup]="searchForm" (ngSubmit)= "handleSearch()">
                             <div class="space-y-4 w-fit">
                                 <!-- Row 1 -->
-                                <div class="flex gap-6">
+                                <div class="flex gap-30">
                                     <div class="flex items-center gap-2">
                                         <label class="text-purple-800 text-xl font-bold p-1 w-48">Long Name:</label>
                                         <input formControlName="longName" type="text" class="px-4 py-2 border-2 shadow-sm border-amber-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent w-48" placeholder="">
@@ -59,7 +59,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                                 </div>
 
                                 <!-- Row 2 -->
-                                <div class="flex gap-6">
+                                <div class="flex gap-30">
                                     <div class="flex items-center gap-2">
                                         <label class="text-purple-800 text-xl font-bold p-1 w-48">Registration Number:</label>
                                         <input formControlName="registrationNumber" type="text" class="px-4 py-2 border-2 shadow-sm border-amber-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent w-48" placeholder="">
@@ -71,7 +71,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                                 </div>
 
                                 <!-- Row 3 -->
-                                <div class="flex gap-6">
+                                <div class="flex gap-30">
                                     <div class="flex items-center gap-2">
                                         <label class="text-purple-800 text-xl font-bold p-1 w-48">Thai Name:</label>
                                         <input formControlName="thaiName" type="text" class="px-4 py-2 border-2 shadow-sm border-amber-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent w-48" placeholder="">
@@ -83,7 +83,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                                 </div>
 
                                 <!-- Row 4 -->
-                                <div class="flex gap-6">
+                                <div class="flex gap-30">
                                     <div class="flex items-center gap-2">
                                         <label class="text-purple-800 text-xl font-bold p-1 w-48">ISIC:</label>
                                         <div class="relative">
@@ -91,13 +91,13 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                                             <span class="absolute right-3 top-2.5 text-gray-400 cursor-pointer">🔍</span>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2 text">
                                         <label class="text-purple-800 text-xl font-bold p-1 w-48">Primary Stock Code:</label>
                                         <input formControlName="primaryStockCode" type="text" class="px-4 py-2 border-2 shadow-sm border-amber-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent w-48" placeholder="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex gap-2">
+                            <div class="flex gap-30">
                                 <button type="submit" class="w-36 mt-6 px-6 py-2 bg-purple-800 text-white font-bold hover:bg-purple-700 cursor-pointer">Search</button>    
                                 <button type="reset" class="w-36 mt-6 px-6 py-2 bg-white text-purple-800 font-bold hover:bg-purple-700 cursor-pointer">Clear</button>
                             </div>
