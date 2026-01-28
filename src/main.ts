@@ -10,18 +10,24 @@ import {bootstrapApplication} from '@angular/platform-browser';
 import { provideRouter,Routes } from '@angular/router';
 import {appConfig} from './app/app.config.js';
 import {App} from './app/app';
-import { Login } from './app/login.js';
-import { TablePageComponent } from './app/loginTable.js';
-import { EntitySearchComponent } from './app/entitySearch.js';
+import { LoginComponent } from './app/features/login/login.component.js';
+import { TablePageComponent } from './app/features/login/loginTable.js';
+import { EntitySearchComponent } from './app/features/entity-search/entity-search.component.js';
+import { provideHttpClient } from '@angular/common/http';
+import { AuthStore } from './app/core/auth/auth.store.js';
 
 const routes: Routes = [ 
-    {path: '', redirectTo: 'entity-search', pathMatch: 'full'}, 
-    {path: 'login',component:Login}, 
+    {path: '', redirectTo: 'demo-login', pathMatch: 'full'}, 
+    {path: 'demo-login',component:LoginComponent}, 
     {path: 'table',component:TablePageComponent},
     {path: 'entity-search',component:EntitySearchComponent},
 ]; 
 
 bootstrapApplication(App, { 
-    providers: [provideRouter(routes)] 
+    providers: [
+        provideRouter(routes),
+        provideHttpClient(),
+        AuthStore
+    ] 
 });
 // bootstrapApplication(App, appConfig).catch((err) => console.error(err));
