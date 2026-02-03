@@ -17,6 +17,7 @@
            disabled:cursor-not-allowed;
   }
   body {
+    @apply bg-violet-200;
     font-family: "Be Vietnam Pro", sans-serif;
   }
 }
@@ -45,6 +46,7 @@
 
 @theme {
   --color-gold: #bfa14e;
+  --color-scb-purple: #4B2885;
 }
 
 @import "tailwindcss"

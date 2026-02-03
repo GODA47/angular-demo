@@ -15,12 +15,14 @@ import { TablePageComponent } from './app/features/login/loginTable.js';
 import { EntitySearchComponent } from './app/features/entity-search/entity-search.component.js';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthStore } from './app/core/auth/auth.store.js';
+import { BRRLoginComponent } from './app/features/brrlogin/brrlogin.component.js';
 
 const routes: Routes = [ 
-    {path: '', redirectTo: 'demo-login', pathMatch: 'full'}, 
+    {path: '', redirectTo: 'brr-login', pathMatch: 'full'}, 
     {path: 'demo-login',component:LoginComponent}, 
     {path: 'table',component:TablePageComponent},
     {path: 'entity-search',component:EntitySearchComponent},
+    {path: 'brr-login',component:BRRLoginComponent},
 ]; 
 
 bootstrapApplication(App, { 
