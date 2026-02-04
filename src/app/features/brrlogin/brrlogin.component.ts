@@ -1,9 +1,7 @@
 import {Component, inject, signal} from '@angular/core';
 import {ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormGroup, FormControl} from '@angular/forms';
-import { noSpacesValidator } from '../../shared/validateInput';
 import { Router,RouterLink } from '@angular/router';
-import { AuthStore } from 'src/app/core/auth/auth.store';
 import {HttpClient} from '@angular/common/http';
 import { BrrLoginService } from './brrlogin.service';
 
@@ -35,14 +33,14 @@ import { BrrLoginService } from './brrlogin.service';
         <div class="max-w-3xl bg-white/50 rounded-2xl shadow-lg p-15 pb-2">
           <div class="mx-auto w-64 flex rounded-2xl shadow-lg overflow-hidden h-16">
             <div class="w-1/2 bg-scb-purple flex items-center justify-center">
-              <!-- <img
-                src="	https://gitdop.se.scb.co.th/uploads/-/system/appearance/header_logo/1/SCB-DevOps-resize.jpg"
+              <img
+                src="/assets/images/SCB_Logo.png"
                 alt="Example"
                 class=" max-h-3/4 max-w-full object-contain"
-              /> -->
+              />
             </div>
             <div class="w-1/2 bg-gray-100 flex items-center justify-center">
-              <p class="font-bold text-lg">BRR</p>
+              <p class="font-bold text-lg">BRRFC</p>
             </div>
           </div>
           <p class="mt-2 text-center font-semibold">Borrower Risk Rating</p>
@@ -68,13 +66,13 @@ import { BrrLoginService } from './brrlogin.service';
               </div>
               <button
                 type="submit" 
-                class="w-64 text-lg rounded-lg bg-scb-purple text-white block mx-auto mt-4 font-bold hover:cursor-pointer">
+                class="w-64 text-lg rounded-lg bg-scb-purple text-white block mx-auto mt-4 px-2 py-1.5 font-bold hover:cursor-pointer">
                 Login
               </button>
             }
             </form>
             <button
-              class="w-64 text-lg rounded-lg bg-scb-purple text-white block mx-auto mt-4 font-bold hover:cursor-pointer"
+              class="w-64 text-lg rounded-lg bg-scb-purple text-white block mx-auto mt-4 px-2 py-1.5  font-bold hover:cursor-pointer"
               (click)="onLoginAD()">
               Login AD
             </button>
@@ -98,7 +96,7 @@ import { BrrLoginService } from './brrlogin.service';
   imports: [ReactiveFormsModule,RouterLink],
 })
 export class BRRLoginComponent {
-  private auth = inject(AuthStore);
+
   isProd = false;
   errorMessage = signal('');
   showCommPopup = false;
@@ -119,12 +117,13 @@ export class BRRLoginComponent {
   // }
   downloadManual(){
     console.log("downloard manual");
-    this.brrLoginService.getHealth().subscribe(response => {
-      this.errorMessage.set(response.message);
-    });
   }
   onLoginAD(){
     console.log("login ad");
+    this.brrLoginService.getHealth().subscribe(response => {
+      console.log(response);
+      this.errorMessage.set(response.message);
+    });
   }
   handleSubmit(){
     console.log("handleSubmit");
