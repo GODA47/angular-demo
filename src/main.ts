@@ -14,11 +14,11 @@ import { LoginComponent } from './app/features/login/login.component.js';
 import { TablePageComponent } from './app/features/login/loginTable.js';
 import { EntitySearchComponent } from './app/features/entity-search/entity-search.component.js';
 import { provideHttpClient } from '@angular/common/http';
-import { AuthStore } from './app/core/auth/auth.store.js';
+// import { AuthStore } from './app/core/auth/auth.store.js';
 import { BRRLoginComponent } from './app/features/brrlogin/brrlogin.component.js';
 
 const routes: Routes = [ 
-    {path: '', redirectTo: 'brr-login', pathMatch: 'full'}, 
+    {path: '', redirectTo: 'entity-search', pathMatch: 'full'}, 
     {path: 'demo-login',component:LoginComponent}, 
     {path: 'table',component:TablePageComponent},
     {path: 'entity-search',component:EntitySearchComponent},
@@ -29,7 +29,7 @@ bootstrapApplication(App, {
     providers: [
         provideRouter(routes),
         provideHttpClient(),
-        AuthStore
+        // AuthStore
     ] 
 });
 // bootstrapApplication(App, appConfig).catch((err) => console.error(err));

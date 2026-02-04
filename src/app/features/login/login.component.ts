@@ -3,7 +3,7 @@ import {ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormGroup, FormControl} from '@angular/forms';
 import { noSpacesValidator } from '../../shared/validateInput';
 import { Router,RouterLink } from '@angular/router';
-import { AuthStore } from 'src/app/core/auth/auth.store';
+// import { AuthStore } from 'src/app/core/auth/auth.store';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -36,7 +36,7 @@ import {HttpClient} from '@angular/common/http';
   imports: [ReactiveFormsModule,RouterLink],
 })
 export class LoginComponent {
-  private auth = inject(AuthStore);
+  // private auth = inject(AuthStore);
   loading = signal(false);
   // count = signal(0);
   // count.update(n => n + 1);

@@ -40,11 +40,43 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                         class="bg-white rounded-lg shadow-2xl p-2 shrink-0 w-300 h-fit"
                     >
                         <div class="flex items-center border-b-2 border-b-purple-800 mb-4 pb-3">
-                            <h2 class="text-purple-800 text-xl font-bold pl-4">Search Criteria</h2>
-                            <div class="ml-auto mr-0 flex items-center justify-center w-fit h-10 cursor-pointer">
+                            <h2 class="text-purple-800 text-xl font-bold pl-4">
+                                Search Criteria
+                            </h2>
+                            <div class="relative ml-auto mr-0 flex items-center justify-center w-fit h-10 cursor-pointer"
+                                    (click)="changeSearchHistoryPopupState()">
                                 <span class="text-purple-800 mr-1 underline font-semibold">Search History</span>
                                 <span class="text-yellow-400 text-lg">🔎</span>
+                                @if(showSearchHistoryPopup){
+                                    <div class="absolute top-full right-0 cursor-default border-purple-400 border-2 z-50"
+                                        (click)="$event.stopPropagation()">
+                                        <!-- <div class="bg-white shadow-2xl w-full max-w-120 p-4"> -->
+                                            <table class="border-collapse table-auto ">
+                                                <thead class="bg-gray-200">
+                                                    <tr>
+                                                        <th class="text-black text-semibold text-left align-top py-2 px-3 pl-7 whitespace-nowrap min-w-150 border-b border-gray-200">
+                                                            Criteria (Last 15 Results)</th>
+                                                        <th class="text-black text-semibold text-left align-top py-2 px-3 pr-6 whitespace-nowrap min-w-30">\
+                                                            Searched On</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @for(row of searchHistory; track row.id){
+                                                        <tr class="bg-white border-b border-gray-300">
+                                                            <td class = "text-black text-semibold text-left align-top py-2 px-3 pl-7">
+                                                            {{getCriteriaText(row)}}</td>
+                                                        <td class = "text-black text-semibold text-left align-top py-2 px-3 pr-4 whitespace-nowrap">
+                                                            {{row.searchedOn}}</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        <!-- </div> -->
+                                    </div>
+                                }
                             </div>
+                            
                         </div>
                         <form [formGroup]="searchForm" (ngSubmit)= "handleSearch()">
                             <div class="space-y-2 w-auto px-2">
@@ -146,7 +178,9 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                             <h2 class="text-purple-800 text-xl font-bold pl-4">Search Result</h2>
                         </div>
                         <div class="bg-purple-800 flex items-center">
-                            <h2 class="text-green-400 text-xl font-bold p-1">✥</h2>
+                            <h2 class="text-green-400 text-xl font-bold p-1 pl-3 align-middle justify-center"
+                                (click)="createEntity()">
+                                ✚</h2>
                             <h2 class="text-gold text-xl font-bold p-1">🗑️</h2>
                         </div>
                         <table class="border-collapse w-full table-auto">
@@ -166,7 +200,7 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
                             <tbody>
                                 @for(row of rows; track row.id){
                                     <tr class="border-b border-gray-300">
-                                        <td class="align-top pl-2"><input type="checkbox" class="w-3 h-3 cursor-pointer"></td>
+                                        <td class=" flex items-center justify-center p-2"><input type="checkbox" class="w-3 h-3 cursor-pointer"></td>
                                         <td>{{ row.id }}</td>
                                         <td>{{ row.customerNumber }}</td>
                                         <td>{{ row.registrationNumber }}</td>
@@ -188,13 +222,45 @@ import { ReactiveFormsModule,Validators} from '@angular/forms';
 })
 
 export class EntitySearchComponent {
+    //TODO: Implement Create Entity
+    createEntity() {
+        throw new Error('Method not implemented.');
+    }
+    //TODO: Create Search History
+    createSearchHistory() {
+        throw new Error('Method not implemented.');
+    }
+
+    getCriteriaText(row: any) {
+        return [
+            row.longName ? `LN: ${row.longName}` : '',
+            row.shortName ? `SN: ${row.shortName}` : '',
+            row.registrationNumber ? `RN: ${row.registrationNumber}` : '',
+            row.customerNumber? `CN: ${row.customerNumber}` : '',
+            row.thaiName ? `TN: ${row.thaiName}` : '',
+            row.groupConnection ? `GC: ${row.groupConnection}` : '',
+            row.isic ? `ISIC: ${row.isic}` : '',
+            row.primaryStockCode ? `PSC: ${row.primaryStockCode}` : '',
+        ].filter(Boolean).join(', ');
+    }
+    
+    showSearchHistoryPopup = false;
+    searchHistory: any[] = [];
+    
+    changeSearchHistoryPopupState() {
+        const stored = localStorage.getItem('entityTable');
+        const records = stored ? JSON.parse(stored) : [];
+        this.searchHistory = records.slice(-15).reverse();
+        console.log(this.searchHistory);
+        this.showSearchHistoryPopup = !this.showSearchHistoryPopup;
+    }
+
+    //TODO: ISIC options from API
     isicOptions = [
         {code:'T0001', label:'test01'},
         {code:'T0002', label:'test02'},
     ];
-    // constructor(private fb:FormBuilder){
-    //     this.form
-    // }
+
     searchForm = new FormGroup({
         longName: new FormControl(''),
         shortName: new FormControl(''),
@@ -208,17 +274,45 @@ export class EntitySearchComponent {
     rows: any[] = [];
     navItems = ['Dashboard', 'Search Borrower', 'Risk Assessment', 'Reports'];
     selectedItem: string = 'Dashboard';
-
+    
+    //TODO: Implement API Search
     handleSearch() {
         console.log("handleSearch");
         const formValue = this.searchForm.value;
         console.log(formValue);
+        
+        const stored = localStorage.getItem('entityTable');
+        const existing = stored ? JSON.parse(stored) : [];
+
+        const newEntry = {
+            id: Number(existing.length)+1,
+            longName: formValue.longName,
+            shortName: formValue.shortName,
+            registrationNumber: formValue.registrationNumber,
+            customerNumber: formValue.customerNumber,
+            thaiName: formValue.thaiName,
+            groupConnection: formValue.groupConnection,
+            isic: formValue.isic,
+            primaryStockCode: formValue.primaryStockCode,
+            searchedOn: new Date().toISOString()
+        }
+        
+        // console.log(newEntry);
+        existing.push(newEntry);
+        // console.log(existing);
+        localStorage.setItem('entityTable', JSON.stringify(existing));
+
+        const new_stored = localStorage.getItem('entityTable');
+        
+        //TODO: Call API to search entities with payload
         const payload = {
             data:[{
                 CustomerNumber:formValue.customerNumber,
                 RegistrationNumber:formValue.registrationNumber,
                 LongName:formValue.longName,
                 ShortName:formValue.shortName,
+                ThaiName:formValue.thaiName,
+                GroupConnection:formValue.groupConnection,
                 IndustryCode:formValue.isic,
                 PrimaryStockCode:formValue.primaryStockCode
             }],
@@ -233,31 +327,12 @@ export class EntitySearchComponent {
             }]
         };
         console.log(payload);
-        const stored = localStorage.getItem('entityTable');
-        const existing = stored ? JSON.parse(stored) : [];
-
-        const newEntry = {
-            id: Number(existing.length)+1,
-            longName: formValue.longName,
-            shortName: formValue.shortName,
-            registrationNumber: formValue.registrationNumber,
-            customerNumber: formValue.customerNumber,
-            thaiName: formValue.thaiName,
-            groupConnection: formValue.groupConnection,
-            isic: formValue.isic,
-            primaryStockCode: formValue.primaryStockCode,
-        }
-        
-        // console.log(newEntry);
-        existing.push(newEntry);
-        // console.log(existing);
-        localStorage.setItem('entityTable', JSON.stringify(existing));
-
-        const new_stored = localStorage.getItem('entityTable');
+        //TODO: Update rows to show search result
         this.rows = new_stored ? JSON.parse(new_stored):[];
     }
-    selectItem(item: string) {
-        this.selectedItem = item;
-        console.log(`Selected: ${item}`);
-    }
+
+    // selectItem(item: string) {
+    //     this.selectedItem = item;
+    //     console.log(`Selected: ${item}`);
+    // }
 }
