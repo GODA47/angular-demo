@@ -3,7 +3,7 @@ import { of, delay } from 'rxjs';
 
 export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
   // Check if we should use mock API (you can control this via environment variable)
-  const useMockApi = false; // Set to false to use real API
+  const useMockApi = true; // Set to false to use real API
 
   if (!useMockApi) {
     return next(req);
@@ -13,7 +13,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
   const url = req.url;
 
   // // Health check endpoint
-  if (url.includes('/mock/health')) {
+  if (url.includes('/health')) {
     return of(
       new HttpResponse({
         status: 200,
@@ -26,7 +26,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // // Login endpoint
-  if (url.includes('/mock/login') && req.method === 'POST') {
+  if (url.includes('/login') && req.method === 'POST') {
     const body = req.body as any;
 
     // Mock authentication logic

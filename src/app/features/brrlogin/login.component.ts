@@ -42,8 +42,8 @@ export class LoginComponent {
     console.log("login ad");
   }
   
-  handleSubmit(){
-    console.log("handleSubmit");
+  nonProdLogin(){
+    console.log("nonProdLogin");
 
     if (this.loginForm.invalid) {
       this.errorMessage.set('Please enter username and password');

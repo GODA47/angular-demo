@@ -25,7 +25,7 @@
         <div class="mx-auto w-64 flex rounded-2xl shadow-lg overflow-hidden h-16">
           <div class="w-1/2 bg-scb-purple flex items-center justify-center">
             <img
-              src="/assets/images/SCB_Logo.png"
+              src="assets/images/SCB_Logo.png"
               alt="Example"
               class="max-h-3/4 max-w-full object-contain"
             />
@@ -37,7 +37,7 @@
         <p class="mt-2 text-center font-semibold">Borrower Risk Rating</p>
         <p class="mt-10 mb-4 text-center font-semibold">Sign in with your Organization Account</p>
 
-        <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="nonProdLogin()">
           @if (!isProd) {
             <div class="flex">
               <input
