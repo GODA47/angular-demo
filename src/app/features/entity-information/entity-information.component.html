@@ -1,4 +1,4 @@
-<div class="p-2 pt-6 bg-white">
+<div class="p-2 pt-6 bg-white h-full">
   <form [formGroup]="editForm" class="">
     <div class="text-md w-full h-10 flex flex-row items-center bg-gray-200 p-2 hover:cursor-pointer" (click)="isOpenBusiness = !isOpenBusiness">
       <img src="/assets/images/FoldableArrow.png" alt="Arrow" 
@@ -41,13 +41,13 @@
             </select>
           </div>
           <label class="mr-2">Primary Stock Code:</label>
-          <input formControlName="primaryStockCode" type="text" class="border-2 border-gray-200 rounded-md max-w-50"/>
+          <input formControlName="primaryStockCode" type="text" class="border-2 border-gray-200 rounded-md w-50"/>
 
         </div>
-        <div class="grid grid-cols-[max-content_1fr] gap-2 border border-green-400">
-          <label class =""> Country of Risk:<span class="text-red-500">*</span></label>
+        <div class="grid grid-cols-[max-content_1fr] gap-2 content-start border border-green-400">
+          <label class ="me-2"> Country of Risk:<span class="text-red-500">*</span></label>
           <div class="relative">
-            <select formControlName="countryOfRisk" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-70 truncate" placeholder="">
+            <select formControlName="countryOfRisk" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 truncate" placeholder="">
                 <option value="" class="overflow-hidden max-w-50"></option>
                 @for (op of countryOptions; track op.code){
                     <option [value]="op.code" class="px-1">
@@ -56,6 +56,8 @@
                 }
             </select>
           </div>
+          <label class="mr-2">Listing Date:</label>
+          <input formControlName="primaryStockCode" type="text" class="border-2 border-gray-200 rounded-md w-50"/>
         </div>
       </div>
     </div>
@@ -64,6 +66,46 @@
         class="inline-block w-auto h-4"
         [class.rotate-90]="isOpenIndustry"/>
       <span class="ml-1">Industry Information</span>
+    </div>
+    <div
+      class="transition-all duration-300 overflow-hidden"
+      [style.maxHeight]="isOpenIndustry ? '200px' : '0px'"
+    >
+      <div class="text-sm flex px-8 py-6 gap-2">
+        <label class="mr-2">Risk Currency:</label>
+        <div class="relative">
+          <select formControlName="countryOfRisk" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 truncate" placeholder="">
+              <option value="" class="overflow-hidden max-w-50">ISIC V4</option>
+              @for (op of indClassOptions; track op.code){
+                  <option [value]="op.code" class="px-1">
+                      {{op.label}}
+                  </option>
+              }
+          </select>
+        </div>
+      </div>
+      <table class="border-collapse w-full table-auto">
+        <thead class="bg-gray-300">
+            <tr>
+                <th class="w-10"><h2 class="flex text-green-400 text-md font-bold p-1 align-middle justify-center"
+                    (click)="createIndustryRow()">
+                    ✚</h2></th>
+                <th class="text-xs text-semibold text-left align-top py-2 ">
+                  Industry Code <span class="text-red-500">*</span>
+                </th>
+                <th class="text-xs text-semibold text-left align-top py-2 ">Percentage (%) <span class="text-red-500">*</span></th>
+                <th class="text-xs text-semibold text-left align-top py-2 ">Primary?</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for(row of rows; track row.id){
+                <tr class="border-b border-gray-300">
+                    <td><h2 class="flex text-red-500 font-bold align-middle justify-center">×</h2></td>
+                </tr>
+            }
+        </tbody>
+    </table>
     </div>
   </form>
 </div>
