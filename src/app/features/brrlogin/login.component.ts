@@ -43,6 +43,7 @@ export class LoginComponent {
   }
   
   nonProdLogin(){
+    var success = false;
     console.log("nonProdLogin");
 
     if (this.loginForm.invalid) {
@@ -82,6 +83,8 @@ export class LoginComponent {
           setTimeout(() => {
             this.router.navigate(['/entity/search']);
           }, 1000);
+
+          success = false;
         }
         // Check for old response format (backward compatibility)
         else if (response.success) {
@@ -90,6 +93,7 @@ export class LoginComponent {
           setTimeout(() => {
             this.router.navigate(['/entity/search']);
           }, 1000);
+          success = true
         }
         // Handle error response
         else {
@@ -102,6 +106,10 @@ export class LoginComponent {
         this.errorMessage.set('An error occurred during login');
       }
     });
+
+    //TODO: LOG LOGIN ATTEMPT
+    
+
   }
 
   openPopup(){
