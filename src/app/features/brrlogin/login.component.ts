@@ -14,9 +14,6 @@ export class LoginComponent {
 
   isProd = false;
   errorMessage = signal('');
-  showCommPopup = false;
-  commMessage = 'System will undergo maintenance from bla bla bla pm to bla bla bla pm. Sorry for any inconvenience.';
-
   loading = signal(false);
 
   loginForm = new FormGroup({
@@ -38,7 +35,6 @@ export class LoginComponent {
   }
 
   onLoginAD(){
-    this.openPopup();
     console.log("login ad");
   }
   
@@ -110,14 +106,6 @@ export class LoginComponent {
     //TODO: LOG LOGIN ATTEMPT
     
 
-  }
-
-  openPopup(){
-    this.showCommPopup = true;
-  }
-
-  closePopup(){
-    this.showCommPopup = false;
   }
 
   ngOnInit(){

@@ -1,112 +1,99 @@
-<!-- <div class="flex flex-col h-screen"> -->
-  <main class="content-area relative w-full h-full">
+@if (showCommPopup) {
+  <div class="fixed min-h-screen min-w-screen bg-black/50 z-60 -translate-y-18 -translate-x-64">
+    <div class="fixed inset-0 flex justify-center items-center h-full">
+      <div class="bg-white shadow-xl w-full max-w-md p-4" (click)="$event.stopPropagation()">
+        <h2 class="text-centertext-xl mb-4 text-center">📢 Announcement 📢</h2>
+        <p class="text-gray-600 text-justify mb-6 text-sm">
+          {{ commMessage }}
+        </p>
+        <div class="flex items-center justify-center">
+          <button
+            class="h-7 w-16 mx-auto px-3 py-1 rounded-md border-gray-300 text-sm shadow-lg bg-gray-200 hover:cursor-pointer"
+            (click)="closeCommPopup()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+  <main class="content-area relative w-full h-full min-w-200">
     @if(showSearchHistoryPopup){
       <div class="absolute inset-0 bg-black/20 z-40" (click)="closePopup()">
   
       </div>
     }
-    <div class="ml-0 flex-1 overflow-y-auto flex h-full items-start p-6">
+    <div class="ml-0 flex-1 flex w-full h-full items-start p-6">
   
         <div 
-            class="bg-white rounded-lg shadow-2xl p-2 shrink-0 w-300 h-fit"
-        >
-            <div class="flex items-center border-b-2 border-b-purple-800 mb-4 pb-3">
-                <h2 class="text-purple-800 text-xl font-bold pl-4">
+            class="bg-white rounded-lg shadow-2xl p-2 shrink-0 w-full h-fit">
+            <div class="flex items-center border-b-2 border-b-purple-800 mb-4">
+                <h2 class="text-purple-800 text-md font-bold pl-4">
                     Search Criteria
                 </h2>
                 <div class="relative ml-auto mr-0 flex items-center justify-center w-fit h-10 cursor-pointer"
                         (click)="openSearchHistoryPopup()">
-                    <span class="text-purple-800 mr-1 underline font-semibold">Search History</span>
-                    <span class="text-yellow-400 text-lg">🔎</span>
+                    <span class="text-purple-800 underline font-semibold text-sm">Search History</span>
+                    <span class="text-yellow-400 text-sm">🔎</span>
                     @if(showSearchHistoryPopup){
-                        <div class="absolute overflow-y-auto overflow-x-hidden top-full right-0 cursor-default border-purple-400 border-2 z-50 max-h-150 max-w-fit"
+                        <div class="absolute overflow-y-auto overflow-x-scroll top-full right-0 cursor-default bg-white border-purple-400 border-2 z-50 max-h-150 max-w-150 min-w-100"
                             (click)="$event.stopPropagation()">
                             <!-- <div class="bg-white shadow-2xl w-full max-w-120 p-4"> -->
-                                <table class="border-collapse table-auto ">
-                                    <thead class="bg-gray-200">
-                                        <tr>
-                                            <th class="text-black text-semibold text-left align-top py-1 px-3 pl-7 whitespace-nowrap min-w-150 border-b border-gray-200">
-                                                Criteria (Last 15 Results)</th>
-                                            <th class="text-black text-semibold text-left align-top py-1 px-3 pr-6 whitespace-nowrap min-w-30">
-                                                Searched On</th>
-                                        </tr>
-                                    </thead>
-  
-                                    <tbody>
-                                        @for(row of searchHistory; track row.id){
-                                            <tr class="bg-white border-b border-gray-300">
-                                                <td class = "text-black text-semibold text-left align-top py-2 px-3 pl-7">
-                                                {{getCriteriaText(row)}}</td>
-                                            <td class = "text-black text-semibold text-left align-top py-2 px-3 pr-4 whitespace-nowrap">
-                                                {{row.searchedOn}}</td>
+                                @if(!loadingHistory()){
+                                    <table class="border-collapse table-auto ">
+                                        <thead class="bg-gray-200">
+                                            <tr>
+                                                <th class="text-black text-semibold text-left text-sm align-top py-1 px-3 pl-7 min-w-70 border-b border-gray-200">
+                                                    Criteria (Last 15 Results)</th>
+                                                <th class="text-black text-semibold text-left text-sm align-top py-1 px-3 pr-6 min-w-30">
+                                                    Searched On</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            <!-- </div> -->
+                                        </thead>
+                                        <tbody>
+                                            @for(row of searchHistory; track row.id){
+                                                <tr class="bg-white border-b text-sm border-gray-300">
+                                                    <td class = "text-black text-semibold text-left align-top py-2 px-3 pl-7">
+                                                    {{row.Criteria}}</td>
+                                                <td class = "text-black text-semibold text-sm text-left align-top py-2 px-3 pr-4 whitespace-nowrap">
+                                                    {{row.searchDate}}</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                } @else{
+                                    <div class="w-full font-bold text-center p-2">
+                                        <span>Loading......</span>
+                                    </div>
+                                }
                         </div>
                     }
                 </div>
                 
             </div>
             <form [formGroup]="searchForm" (ngSubmit)= "handleSearch()">
-                <div class="space-y-2 w-auto px-2">
-                    <!-- Row 1 -->
-                    <div class="flex justify-between">
-                        <div class="flex items-center gap-2">
+                <div class="flex flex-col">
+                    <div class="text-sm grid grid-cols-2 gap-2">  
+                        <!-- COL1 -->
+                        <div class="grid grid-cols-[max-content_minmax(2rem,1fr)] items-start gap-1 gap-x-6 px-4">
                             <label class="entity-search-inputlabel">Long Name:</label>
                             <input formControlName="longName" type="text" class="entity-search-inputbox" placeholder="">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="entity-search-inputlabel">Short Name:</label>
-                            <input formControlName="shortName" type="text" class="entity-search-inputbox" placeholder="">
-                        </div>
-                    </div>
-  
-                    <!-- Row 2 -->
-                    <div class="flex justify-between">
-                        <div class="flex items-center gap-2">
                             <label class="entity-search-inputlabel">Registration Number:</label>
                             <input formControlName="registrationNumber" type="text" class="entity-search-inputbox" placeholder="">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="entity-search-inputlabel">Customer Number:</label>
-                            <input formControlName="customerNumber" type="text" class="entity-search-inputbox" placeholder="">
-                        </div>
-                    </div>
-  
-                    <!-- Row 3 -->
-                    <div class="flex justify-between">
-                        <div class="flex items-center gap-2">
                             <label class="entity-search-inputlabel ">Thai Name:</label>
-                            <input formControlName="thaiName" type="text" class="entity-search-inputbox" placeholder="" 
-                            [class.border-red-500]="searchForm.controls.thaiName.invalid"
-                            [title]="searchForm.controls.thaiName.valid ? '':'Must be at least 3 characters'">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="entity-search-inputlabel">Group/Connection:</label>
-                            <input formControlName="groupConnection" type="text" class="entity-search-inputbox" placeholder="">
-                        </div>
-                    </div>
-                    @if (searchForm.controls.thaiName.invalid){
-                        <div class="flex justify-between h-2">
-                            <div class="flex items-center gap-2">
-                                <label class="entity-search-inputlabel"></label>
-                                <p class="w-80 ml-2 text-sm text-red-500">Must be at least 3 characters</p>
+                            <div class="flex flex-col max-w-50">
+                                <input formControlName="thaiName" type="text" class="entity-search-inputbox" placeholder="" 
+                                    [class.border-red-500]="searchForm.controls.thaiName.invalid"
+                                    [title]="searchForm.controls.thaiName.valid ? '':'Must be at least 3 characters'">
+                                @if (searchForm.controls.thaiName.invalid){
+                                    <span class="max-w-50 h-fit text-[12px] text-red-500 pl-2 pt-1">Must be at least 3 characters</span>
+                                }
                             </div>
-                            <div class="flex items-center gap-2">
-                                <label class="entity-search-inputlabel"></label>
-                                <p calss="w-80"></p>
-                            </div>
-                        </div>
-                    }
-  
-                    <!-- Row 4 -->
-                    <div class="flex justify-between">
-                        <div class="flex items-center gap-2">
                             <label class="entity-search-inputlabel">ISIC:</label>
-                            <div class="relative">
-                                <select formControlName="isic" class=" appearance-none hover:cursor-pointer entity-search-inputbox" placeholder="">
+                            <div class="w-full hover:cursor-pointer">
+                                <!-- <div class="relative w-fit"> -->
+                                <select formControlName="isic" 
+                                    class=" appearance-none hover:cursor-pointer w-full entity-search-inputbox" placeholder="">
                                     <option value=""></option>
                                     @for (op of isicOptions; track op.code){
                                         <option [value]="op.code">
@@ -114,75 +101,86 @@
                                         </option>
                                     }
                                 </select>
-                                <span class="absolute right-3 top-2.5 text-gray-400 cursor-pointer">🔍</span>
+                                    <!-- <span class="absolute right-1 top-1 text-xs">🔎</span> -->
+                                <!-- </div> -->
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 text">
-                            <label class="entity-search-inputlabel">Primary Stock Code:</label>
-                            <input formControlName="primaryStockCode" type="text" class="entity-search-inputbox" placeholder=""
-                                [class.border-red-500]="searchForm.controls.primaryStockCode.invalid">
-                        </div>
+                        <div class="grid grid-cols-[max-content_minmax(2rem,1fr)] items-start gap-2 px-4">
+                            <!-- COL2 -->
+                                <label class="entity-search-inputlabel">Short Name:</label>
+                                <input formControlName="shortName" type="text" class="entity-search-inputbox" placeholder="">
+                                <label class="entity-search-inputlabel">Customer Number:</label>
+                                <input formControlName="customerNumber" type="text" class="entity-search-inputbox" placeholder="">
+                                <label class="entity-search-inputlabel">Group/Connection:</label>
+                                <input formControlName="groupConnection" type="text" class="entity-search-inputbox" placeholder="">
+                                <label class="entity-search-inputlabel">Primary Stock Code:</label>
+                                <div class="flex flex-col max-w-50">
+                                    <input formControlName="primaryStockCode" type="text" class="entity-search-inputbox" placeholder=""
+                                        [class.border-red-500]="searchForm.controls.primaryStockCode.invalid">
+                                    @if (searchForm.controls.primaryStockCode.invalid){
+                                        <span class="max-w-50 h-fit text-[12px] text-red-500 pl-2 pt-1">Cannot be longer than 20 characters</span>
+                                    }
+                                </div>
+                            </div>
                     </div>
-                    @if (searchForm.controls.primaryStockCode.invalid){
-                        <div class="flex justify-between h-2">
-                            <div class="flex items-center gap-2"> 
-                                <label class="entity-search-inputlabel"></label>
-                                <p class="w-80"></p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <label class="entity-search-inputlabel"></label>
-                                <p class="w-78 ml-2 text-sm text-red-500 text-left">Cannot be longer than 20 characters</p>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="flex ml-4 gap-2">
-                    <button 
-                        type="submit" 
-                        class=" disabled:hover:cursor-not-allowed w-36 mt-6 px-6 py-2 shadow-md bg-purple-800 text-white font-bold not-disabled:hover:bg-purple-700 border rounded-sm cursor-pointer"
-                        [disabled] = "!searchForm.valid"
-                        >Search</button>    
-                    <button type="reset" class="w-36 mt-6 px-6 py-2 bg-white shadow-md text-purple-800 font-bold border rounded-sm cursor-pointer">Clear</button>
+                    
+                    <div class="flex ml-4 gap-2 mt-3">
+                        <button 
+                            type="submit" 
+                            class=" disabled:hover:cursor-not-allowed w-30 h-8 px-6 shadow-md bg-purple-800 text-white text-sm font-bold not-disabled:hover:bg-purple-700 border rounded-sm cursor-pointer"
+                            [disabled] = "!searchForm.valid"
+                            >Search</button>    
+                        <button type="reset" class="w-30 h-8 px-6 bg-white shadow-md text-purple-800 text-sm font-bold border rounded-sm cursor-pointer">Clear</button>
+                    </div>
                 </div>
             </form>
-            <div class="flex items-center border-b-2 border-b-purple-800 mb-4 pb-3 pt-6">
-                <h2 class="text-purple-800 text-xl font-bold pl-4">Search Result</h2>
+            <div class="flex items-center border-b-2 border-b-purple-800 mb-4 pb-3 mt-5">
+                <h2 class="text-purple-800 text-md font-bold pl-4">Search Result</h2>
             </div>
             <div class="bg-purple-800 flex items-center">
-                <h2 class="text-green-400 text-xl font-bold p-1 pl-3 align-middle justify-center"
+                <h2 class="text-green-400 text-md font-bold p-1 pl-2 align-middle justify-center"
                     (click)="createEntity()">
                     ✚</h2>
-                <h2 class="text-gold text-xl font-bold p-1">🗑️</h2>
+                <!-- <h2 class="text-gold text-md font-bold p-1">🗑️</h2> -->
             </div>
-            <table class="border-collapse w-full table-auto">
+            <div class="overflow-x-auto">
+                <table class="border-collapse w-full table-auto">
                 <thead class="bg-purple-600">
                     <tr>
-                        <th class="w-10"></th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Entity ID</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Customer Number</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Registration Number</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Long Name</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Short Name</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">isic</th>
-                        <th class="text-white text-semibold text-left align-top py-2 ">Primary Stock Code</th>
+                        <!-- <th class="w-5"></th> -->
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Entity ID</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Customer Number</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Registration Number</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Long Name</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Short Name</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">ISIC</th>
+                        <th class="text-white text-semibold text-sm text-left align-top p-2">Primary Stock Code</th>
                     </tr>
                 </thead>
   
                 <tbody>
-                    @for(row of rows; track row.id){
-                        <tr class="border-b border-gray-300">
-                            <td class=" flex items-center justify-center p-2"><input type="checkbox" class="w-3 h-3 cursor-pointer"></td>
-                            <td>{{ row.id }}</td>
-                            <td>{{ row.customerNumber }}</td>
-                            <td>{{ row.registrationNumber }}</td>
-                            <td>{{ row.longName }}</td>
-                            <td>{{ row.shortName }}</td>
-                            <td>{{ row.isic }}</td>
-                            <td>{{ row.primaryStockCode }}</td>
-                        </tr>
+                    @if(!loadingTable()){
+                        @for(row of rows; track row.id){
+                            <tr class="border-b border-gray-300">
+                                <!-- <td></td> -->
+                                <td class="text-[12px] p-2">{{ row.EntityId }}</td>
+                                <td class="text-[12px] p-2">{{ row.Gc22 }}</td>
+                                <td class="text-[12px] p-2">{{ row.Gc23 }}</td>
+                                <td class="text-[12px] p-2">{{ row.LongName }}</td>
+                                <td class="text-[12px] p-2">{{ row.ShortName }}</td>
+                                <td class="text-[12px] p-2">{{ row.IndustryCode }}</td>
+                                <td class="text-[12px] p-2">{{ row.primaryStockCode || 'mockey'}}</td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
+
+            </div>
+            
+            @if(rows.length === 0){
+                <p class="flex justify-center p-6 text-md">Data Not Found</p>
+            }
   
         </div>
     </div>

@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HealthResponse } from 'src/app/api/models/health-response.model';
-import { LoginRequest, LoginResponse } from 'src/app/api/models/login.model';
+import { HealthResponse } from 'src/app/models/health-response.model';
+import { LoginRequest, LoginResponse } from 'src/app/models/login.model';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
   constructor(private http: HttpClient) {}
   private baseUrl = "http://localhost:8080/api";
-  // private baseUrl = "/mock";
+  
   getHealth() {
     return this.http.get<HealthResponse>(this.baseUrl+'/health', {
       headers: { 'Content-Type': 'application/json' },

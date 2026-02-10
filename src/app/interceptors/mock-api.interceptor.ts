@@ -80,6 +80,78 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
     }
   }
 
+  // Entity Search History
+  if (url.includes('/entity/getsearchhistory')){
+    const body = req.body as any;
+    if(true){
+      return of(
+        new HttpResponse({
+            status: 200,
+            body: {
+              status: 'C',
+              errorCode: '0000',
+              errorDesc: 'SUCCESS',
+              displayMessage: null,
+              data: [{
+                "Criteria": "CompanyA - 993152",
+                "searchDate": "01/01/2026 10:00",
+                },{
+                "Criteria": "CompanyB - 993153",
+                "searchDate": "01/01/2026 11:00",
+                }]
+            },
+          }),
+      ).pipe(delay(800));
+    }
+
+  }
+
+  // Entity Search
+  if (url.includes('/entity/search')){
+    const body = req.body as any;
+    if(true){
+      return of(
+        new HttpResponse({
+            status: 200,
+            body: {
+              status: 'C',
+              errorCode: '0000',
+              errorDesc: 'SUCCESS',
+              displayMessage: null,
+              data: {
+                "items": [{
+                    "EntityId": "12345",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long name",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12346",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long namedddddddddddddddd",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                }],
+                "paging": {
+                    "currentPage": 1,
+                    "totalPage": 1,
+                    "totalRec": 2
+                },
+                "sort": [{
+                    "columnName": "LongName",
+                    "direction": "desc"
+                }]
+              },
+            },
+          }),
+      ).pipe(delay(800));
+    }
+  }
+
   // If no mock matches, pass through to real API
   return next(req);
 };

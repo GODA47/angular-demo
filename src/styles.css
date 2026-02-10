@@ -37,7 +37,9 @@
   }
   .entity-search-inputbox {
       @apply
-          px-4 py-2 w-80 
+          mt-1
+          px-2 max-w-50 min-w-8
+          h-6 text-xs
           border-2 shadow-sm 
           border-purple-300 rounded-lg 
           focus:border-purple-600
@@ -46,7 +48,7 @@
   }
   .entity-search-inputlabel{
       @apply
-          text-purple-800 text-xl font-bold p-1 w-55
+          text-purple-800 text-sm font-bold p-1
   }
 
 }

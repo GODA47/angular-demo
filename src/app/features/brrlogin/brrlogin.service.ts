@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HealthResponse } from "src/app/api/models/health-response.model";
+import { HealthResponse } from "src/app/models/health-response.model";
 
 @Injectable({providedIn:'root'})
 export class BrrLoginService{
