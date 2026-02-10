@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './features/brrlogin/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { EntitySearchComponent } from './features/entity-search/entity-search.component';
-import { EntityInformationComponent } from './features/entity-information/entity-information.component';
+import { EntityInformationComponent } from './features/entity-information/entity-information-business.component';
 
 export const routes: Routes = [
     {

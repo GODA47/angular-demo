@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @tailwind utilities;
 
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
 :root {
   --primary-color: #605dc8;
   --secondary-color: #8b89e6;
@@ -8,14 +10,6 @@
   --shadow-color: #e8e8e8;
 }
 @layer base{
-  /* button {
-    @apply px-2 py-1.5 text-black bg-gray-100 rounded-lg border border-black
-           active:bg-gray-400
-           disabled:bg-gray-100
-           disabled:text-gray-400
-           disabled:border-gray-300
-           disabled:cursor-not-allowed;
-  } */
   body {
     @apply bg-violet-200;
     /* font-family: "Be Vietnam Pro", sans-serif; */
@@ -67,4 +61,14 @@
   --color-scb-purple: #4B2885;
 }
 
-@import "tailwindcss"
+/* Chrome, Edge, Safari */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
