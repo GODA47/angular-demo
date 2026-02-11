@@ -10,9 +10,9 @@
       [style.maxHeight]="isOpenBusiness ? '200px' : '0px'"
     >
       <div class="text-sm grid grid-cols-2 px-8 py-6 gap-2">
-        <div class="grid grid-cols-[max-content_1fr] gap-2 ">
+        <div class="grid grid-cols-[max-content_1fr] items-center gap-2 ">
           <label class="mr-2"> Firm Type:<span class="text-red-600">*</span></label>
-          <div class="flex w-full">
+          <div class="flex w-full h-6 items-center">
             <label class=" flex items-center cursor-pointer mr-4">
               <label class="relative flex items-center cursor-pointer mx-1">
                 <input type="radio" name="firmtype" class="peer h-2 w-2 cursor-pointer appearance-none rounded-full border border-black bg-white">
@@ -30,7 +30,7 @@
           </div>
           <label class="mr-2">Risk Currency:</label>
           <div class="relative">
-            <select formControlName="riskCurrency" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50" placeholder="">
+            <select formControlName="riskCurrency" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 h-6">
                 <option value=""></option>
                 @for (op of currencyOptions; track op.code){
                     <option [value]="op.code" class="px-1 whitespace-pre-wrap">
@@ -53,10 +53,10 @@
           </div>
 
         </div>
-        <div class="grid grid-cols-[max-content_1fr] gap-2 content-start ">
+        <div class="grid grid-cols-[max-content_1fr] items-center gap-2 content-start ">
           <label class ="me-2"> Country of Risk:<span class="text-red-500">*</span></label>
           <div class="relative">
-            <select formControlName="countryOfRisk" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 truncate" placeholder="">
+            <select formControlName="countryOfRisk" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 h-6 truncate">
                 <option value="" class="overflow-hidden max-w-50"></option>
                 @for (op of countryOptions; track op.code){
                     <option [value]="op.code" class="px-1">
@@ -80,7 +80,7 @@
       [class.max-h-full]="isOpenIndustry"
       [class.max-h-0]="!isOpenIndustry"
     >
-      <div class="text-sm flex px-8 py-6 gap-2">
+      <div class="text-sm flex px-8 py-6 gap-2 items-center">
         <label class="mr-2">Industry Classification:</label>
         <div class="relative">
           <select formControlName="indClass" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-md w-50 truncate px-1" placeholder="">
@@ -100,18 +100,18 @@
             [value]="industries"
             dataKey="rowId"
             sortMode="single"
-            class="w-full border-collapse"
-            style="--p-datatable-sort-icon-size: 10px"
+            class="w-full border-collapse industry-info-table"
+            style="--p-datatable-sort-icon-size: 10px "
             (onSort)="onSort($event)"
             [tableStyle]="{}">
 
           <!-- HEADER -->
           <ng-template pTemplate="header">
-            <tr class="sticky top-0 bg-gray-300">
+            <tr class="sticky top-0 bg-gray-300 h-6">
               <th class="w-10">
                 <button 
                     type="button"
-                    class="w-6 h-6 text-green-500 hover:text-green-600 hover:bg-gray-200"
+                    class="ml-1 w-4 h-4 text-green-500 hover:text-green-600 hover:bg-gray-200"
                     (click)="addIndustry()">
                   <i class="pi pi-plus"></i>
                 </button>
@@ -119,17 +119,17 @@
 
               <th  
                   pSortableColumn="industryCode" 
-                  class="text-xs py-2 border-black border-5">
+                  class="text-xs py-2">
                 Industry Code <span class="text-red-500">*</span>
                 <p-sortIcon field="industryCode" class="ml-3"></p-sortIcon>
               </th>
               
-              <th pSortableColumn="industryPercentage" class="text-xs text-left py-2">
+              <th pSortableColumn="industryPercentage" class="text-xs font-semibold py-2">
                 <span>Percentage (%)</span><span class="text-red-500">*</span>
                 <p-sortIcon field="industryPercentage" class="ml-3"></p-sortIcon>
               </th>
 
-              <th class="text-xs text-left py-2">
+              <th class="text-xs py-2 is-primary-col">
                 Primary?
               </th>
             </tr>
@@ -168,7 +168,7 @@
                 />
               </td>
 
-              <td class="text-xs align-middle">
+              <td class="text-xs is-primary-col">
                 <input
                   type="checkbox"
                   formControlName="isPrimary"

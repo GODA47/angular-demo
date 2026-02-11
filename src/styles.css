@@ -72,14 +72,15 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-
-.p-datatable-thead > tr > th,
-.p-datatable-tbody > tr > td {
-  border: unset !important;
+.industry-info-table .p-datatable-tbody > tr > td {
+  border-width: 0px 0px 0px 0px;
 }
-.p-datatable-sort-icon{
-  font-size: 0.5rem;
-  width:0.6rem;
-  height: 0.6rem;
+.industry-info-table .p-datatable-tbody > tr > td.is-primary-col,
+.industry-info-table .p-datatable-thead > tr > th.is-primary-col{
+  border-width: 0px 0px 0px 0px;
+  text-align: center;
 }
-/* .p-datatable p-datatable-tbody > tr > td  */
+.industry-info-table .p-datatable-thead > tr > th {
+  border-width: 0px 0px 0px 0px; 
+  font-weight:600;
+}
