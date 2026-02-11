@@ -39,8 +39,18 @@
                 }
             </select>
           </div>
-          <label class="mr-2">Primary Stock Code:</label>
-          <input formControlName="primaryStockCode" type="text" class="border-2 border-gray-200 rounded-md w-50 px-1"/>
+          <label class="mr-2">
+            Primary Stock Code:
+          </label>
+          <div class="flex flex-col">
+          <input formControlName="primaryStockCode" type="text" 
+              class="border-2 border-gray-200 rounded-md w-50 px-1"
+              [class.border-red-500]="editForm.controls.primaryStockCode.invalid"
+              [title]="editForm.controls.primaryStockCode.valid ? '':'Required when Listing Date is filled'"/>
+            @if (editForm.controls.listingDate.value !== ''){
+                <span class="max-w-50 h-fit text-[12px] text-red-500 pl-2 pt-1">Required when Listing Date is filled</span>
+            }
+          </div>
 
         </div>
         <div class="grid grid-cols-[max-content_1fr] gap-2 content-start ">
@@ -56,7 +66,7 @@
             </select>
           </div>
           <label class="mr-2">Listing Date:</label>
-          <input formControlName="primaryStockCode" type="text" class="border-2 border-gray-200 rounded-md w-50 px-1"/>
+          <input formControlName="listingDate" type="text" class="border-2 border-gray-200 rounded-md w-50 px-1"/>
         </div>
       </div>
     </div>
@@ -86,54 +96,136 @@
         </div>
       </div>
       <div class="max-h-70 overflow-y-scroll">
-      <table class="border-collapse w-full table-auto">
-        <thead class="sticky top-0 bg-gray-300">
-            <tr>
-                <th class="w-10">
-                  <button type="button"
-                          class="w-6 h-6 text-green-500 hover:text-green-600 hover:bg-gray-200"
-                          (click)="addIndustry()">
-                    <i class="pi pi-plus"></i>
-                  </button>
-                </th>
-                <th class="ml-4 text-xs text-semibold text-left align-top py-2 ">
-                  Industry Code <span class="text-red-500">*</span>
-                </th>
-                <th class="text-xs text-semibold text-left align-top py-2 ">Percentage (%) <span class="text-red-500">*</span></th>
-                <th class="text-xs text-semibold text-left align-top py-2 ">Primary?</th>
-            </tr>
-        </thead>
+        <p-table
+            [value]="industries"
+            dataKey="rowId"
+            sortMode="single"
+            class="w-full border-collapse"
+            style="--p-datatable-sort-icon-size: 10px"
+            (onSort)="onSort($event)"
+            [tableStyle]="{}">
 
-        <tbody formArrayName="industriesArray">
-          <tr *ngFor="let industry of industriesArray.controls; let i = index" [formGroupName]="i">
-            <td class=" text-center py-2">
-              <button type="button" 
-                      class="w-6 h-6 text-red-500 hover:text-red-600 hover:bg-red-100"
-                      (click)="removeIndustry(i)">
-                <i class="pi pi-trash"></i>
-              </button>
-            </td>
-            <td><h2 class="flex text-xs align-middle justify-left">
-              <select formControlName="industryCode" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-sm min-w-80 truncate px-1 block">
-                <option value="" class="overflow-hidden max-w-150"></option>
-                @for (op of industryCodes; track op.code){
-                    <option [value]="op.code" class="px-1">
-                        {{op.code}}
-                    </option>
-                }
-              </select>
-            </h2></td>
-            <td><h2 class="flex text-xs align-middle justify-left">
-              <input formControlName="industryPercentage" type="number" 
-                class=" appearance-none text-center border-2 border-gray-200 rounded-sm w-20 px-1"/>
-            </h2></td>
-            <td><h2 class="flex items-center text-xs align-middle justify-left">
-              <input formControlName="isPrimary" type="checkbox" class="hover:cursor-pointer accent-purple-600"/>
-            </h2></td> 
-          </tr>
-        </tbody>
-    </table>
-    </div>
+          <!-- HEADER -->
+          <ng-template pTemplate="header">
+            <tr class="sticky top-0 bg-gray-300">
+              <th class="w-10">
+                <button 
+                    type="button"
+                    class="w-6 h-6 text-green-500 hover:text-green-600 hover:bg-gray-200"
+                    (click)="addIndustry()">
+                  <i class="pi pi-plus"></i>
+                </button>
+              </th>
+
+              <th  
+                  pSortableColumn="industryCode" 
+                  class="text-xs py-2 border-black border-5">
+                Industry Code <span class="text-red-500">*</span>
+                <p-sortIcon field="industryCode" class="ml-3"></p-sortIcon>
+              </th>
+              
+              <th pSortableColumn="industryPercentage" class="text-xs text-left py-2">
+                <span>Percentage (%)</span><span class="text-red-500">*</span>
+                <p-sortIcon field="industryPercentage" class="ml-3"></p-sortIcon>
+              </th>
+
+              <th class="text-xs text-left py-2">
+                Primary?
+              </th>
+            </tr>
+          </ng-template>
+
+          <!-- BODY -->
+          <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+            <tr 
+                [formGroup]="getIndustryGroup(rowIndex)"
+                class="h-7">
+              <td class="align-middle py-2">
+                <button 
+                    type="button" 
+                    class="w-6 h-6 text-red-500 hover:text-red-600 hover:bg-red-100"
+                    (click)="removeIndustry(rowIndex)">
+                  <i class="pi pi-trash"></i>
+                </button>
+              </td>
+
+              <td class="text-xs">
+                <select formControlName="industryCode" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-sm min-w-80 truncate px-1 block">
+                  <option value="" class="overflow-hidden max-w-150"></option>
+                  @for (op of industryCodes; track op.code){
+                      <option [value]="op.code" class="px-1">
+                          {{op.code}}
+                      </option>
+                  }
+                </select>
+              </td>
+              
+              <td class="text-xs">
+                <input
+                  type="number"
+                  formControlName="industryPercentage"
+                  class="appearance-none text-center border-2 border-gray-200 rounded-sm w-20 px-1"
+                />
+              </td>
+
+              <td class="text-xs align-middle">
+                <input
+                  type="checkbox"
+                  formControlName="isPrimary"
+                  class="hover:cursor-pointer accent-purple-600"
+                />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <!-- <table class="border-collapse w-full table-auto">
+          <thead class="sticky top-0 bg-gray-300">
+              <tr>
+                  <th class="w-10">
+                    <button type="button"
+                            class="w-6 h-6 text-green-500 hover:text-green-600 hover:bg-gray-200"
+                            (click)="addIndustry()">
+                      <i class="pi pi-plus"></i>
+                    </button>
+                  </th>
+                  <th class="ml-4 text-xs text-semibold text-left align-top py-2 ">
+                    Industry Code <span class="text-red-500">*</span>
+                  </th>
+                  <th class="text-xs text-semibold text-left align-top py-2 ">Percentage (%) <span class="text-red-500">*</span></th>
+                  <th class="text-xs text-semibold text-left align-top py-2 ">Primary?</th>
+              </tr>
+          </thead>
+
+          <tbody formArrayName="industriesArray">
+            <tr *ngFor="let industry of industriesArray.controls; let i = index" [formGroupName]="i">
+              <td class=" text-center py-2">
+                <button type="button" 
+                        class="w-6 h-6 text-red-500 hover:text-red-600 hover:bg-red-100"
+                        (click)="removeIndustry(i)">
+                  <i class="pi pi-trash"></i>
+                </button>
+              </td>
+              <td><h2 class="flex text-xs align-middle justify-left">
+                <select formControlName="industryCode" class="hover:cursor-pointer bg-white border-2 border-gray-200 rounded-sm min-w-80 truncate px-1 block">
+                  <option value="" class="overflow-hidden max-w-150"></option>
+                  @for (op of industryCodes; track op.code){
+                      <option [value]="op.code" class="px-1">
+                          {{op.code}}
+                      </option>
+                  }
+                </select>
+              </h2></td>
+              <td><h2 class="flex text-xs align-middle justify-left">
+                <input formControlName="industryPercentage" type="number" 
+                  class=" appearance-none text-center border-2 border-gray-200 rounded-sm w-20 px-1"/>
+              </h2></td>
+              <td><h2 class="flex items-center text-xs align-middle justify-left">
+                <input formControlName="isPrimary" type="checkbox" class="hover:cursor-pointer accent-purple-600"/>
+              </h2></td> 
+            </tr>
+          </tbody>
+        </table> -->
+      </div>
     </div>
   </form>
 </div>

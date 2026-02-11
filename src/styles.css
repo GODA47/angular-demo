@@ -44,7 +44,6 @@
       @apply
           text-purple-800 text-sm font-bold p-1
   }
-
 }
 .login {
   @apply flex flex-col justify-center items-center;
@@ -72,3 +71,15 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+.p-datatable-thead > tr > th,
+.p-datatable-tbody > tr > td {
+  border: unset !important;
+}
+.p-datatable-sort-icon{
+  font-size: 0.5rem;
+  width:0.6rem;
+  height: 0.6rem;
+}
+/* .p-datatable p-datatable-tbody > tr > td  */
