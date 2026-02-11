@@ -141,7 +141,6 @@
 							[value]="entities"
 							[paginator]="!loadingTable()&& entities.length>0 ? true : false"
 							[rows]="10"
-							[rowsPerPageOptions]="[10,20,50]"
 							class="relative min-w-full border-collapse entity-search-table"
 							style="--p-datatable-sort-icon-size: 12px"
 							sortMode="single"
@@ -154,29 +153,29 @@
 									<span class="ml-3 mr-1">Entity ID</span>
 									<p-sortIcon field="EntityId"></p-sortIcon>
 								</th>
-								<th pSortableColumn="Gc22" class="">
+								<th pSortableColumn="Gc22" class="min-w-45">
 									<span class="ml-3 mr-1">Customer Number</span>
 									<p-sortIcon field="Gc22"></p-sortIcon>
 								</th>
-								<th pSortableColumn="Gc23" class="">
+								<th pSortableColumn="Gc23" class="min-w-45">
 									<span class="ml-3 mr-1">Registration Number</span>
 									<p-sortIcon field="Gc23"></p-sortIcon>
 								</th>
-								<th pSortableColumn="LongName" class="">
+								<th pSortableColumn="LongName" class="min-w-30">
 									<span class="ml-3 mr-1">Long Name</span>
 									<p-sortIcon field="LongName"></p-sortIcon>
 								</th>
-								<th pSortableColumn="ShortName" class="">
+								<th pSortableColumn="ShortName" class="min-w-30">
 									<span class="ml-3 mr-1">Short Name</span>
-									<p-sortIcon field="ShortName" ></p-sortIcon>
+									<p-sortIcon field="ShortName"></p-sortIcon>
 								</th>
-								<th pSortableColumn="IndustryCode"class="">
+								<th pSortableColumn="IndustryCode"class="min-w-20">
 									<span class="ml-3 mr-1">ISIC</span>
 									<p-sortIcon field="IndustryCode"></p-sortIcon>
 								</th>
-								<th pSortableColumn="PrimaryStockCode">
+								<th pSortableColumn="PrimaryStockCode" class="min-w-40">
 									<span class="ml-3 mr-1">Primary Stock Code</span>
-									<p-sortIcon field="PrimaryStockCode" class="mr-2"></p-sortIcon>
+									<p-sortIcon field="PrimaryStockCode" class="mr-1"></p-sortIcon>
 								</th>
 							</tr>
 						</ng-template>
@@ -184,13 +183,13 @@
 						<!-- BODY -->
 						<ng-template pTemplate="body" let-row>
 							<tr>
-								<td><span class="mx-3">{{row.EntityId}}</span></td>
-								<td><span class="mx-3">{{row.Gc22}}</span></td>
-								<td><span class="mx-3">{{row.Gc23}}</span></td>
-								<td><span class="mx-3">{{row.LongName}}</span></td>
-								<td><span class="mx-3">{{row.ShortName}}</span></td>
-								<td><span class="mx-3">{{row.IndustryCode}}</span></td>
-								<td><span class="mx-3">{{row.PrimaryStockCode || 'MOCK'}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.EntityId}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.Gc22}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.Gc23}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.LongName}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.ShortName}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.IndustryCode}}</span></td>
+								<td><span class="mx-3 text-xs">{{row.PrimaryStockCode || 'MOCK'}}</span></td>
 							</tr>
 						</ng-template>
 					</p-table>

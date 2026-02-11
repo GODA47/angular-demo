@@ -83,5 +83,6 @@ input[type=number] {
 } 
 
 .entity-search-table .p-datatable-tbody > tr > td {
-  border-width: 0px 0px 0px 0px;
+  border-width: 0px 0px 1px 0px;
+  border-color: #e8e8e8;
 }
