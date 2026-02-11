@@ -72,15 +72,16 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.industry-info-table .p-datatable-tbody > tr > td {
+.industry-info-table .p-datatable-tbody > tr > td,
+.industry-info-table .p-datatable-thead > tr > th {
   border-width: 0px 0px 0px 0px;
 }
 .industry-info-table .p-datatable-tbody > tr > td.is-primary-col,
 .industry-info-table .p-datatable-thead > tr > th.is-primary-col{
   border-width: 0px 0px 0px 0px;
   text-align: center;
-}
-.industry-info-table .p-datatable-thead > tr > th {
-  border-width: 0px 0px 0px 0px; 
-  font-weight:600;
+} 
+
+.entity-search-table .p-datatable-tbody > tr > td {
+  border-width: 0px 0px 0px 0px;
 }

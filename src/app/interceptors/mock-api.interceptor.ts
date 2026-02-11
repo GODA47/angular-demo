@@ -135,6 +135,54 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
                     "ShortName": "test short name",
                     "PrimaryBankingOfficer": "s123456",
                     "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "1234567",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long name",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12348",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long namedddddddddddddddd",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12349",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long name",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12340",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long namedddddddddddddddd",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12341",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long name",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
+                },{
+                    "EntityId": "12342",
+                    "Gc22": "001400000000000000000003368409",
+                    "Gc23": "0105539069501",
+                    "LongName": "test long namedddddddddddddddd",
+                    "ShortName": "test short name",
+                    "PrimaryBankingOfficer": "s123456",
+                    "IndustryCode": "G466130 - Wholesale of gaseous fuels"
                 }],
                 "paging": {
                     "currentPage": 1,

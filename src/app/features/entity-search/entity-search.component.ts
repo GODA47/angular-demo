@@ -1,18 +1,25 @@
 import { Component, signal } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ReactiveFormsModule,Validators } from '@angular/forms';
+import { FormGroup,FormControl,FormArray,AbstractControl,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { EntitySearchRequest,EntitySearchResponse,EntitySearchHistoryRequest,EntitySearchHistoryResponse} from '../../models/entity-search.model';
+import { EntitySearchRequest,EntitySearchResponse,EntitySearchHistoryRequest,EntitySearchHistoryResponse, EntitySearchResponseItems} from '../../models/entity-search.model';
 import { EntitySearchService } from '../../services/entity-search.service';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-entity-search',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TableModule],
   templateUrl: './entity-search.component.html',
   styles: []
 })
 export class EntitySearchComponent {
+
+  entities: EntitySearchResponseItems[]=[];
+  entitiesArray = new FormArray<FormGroup<any>>([]);
+  showSearchHistoryPopup = false;
+  searchHistory: any[] = [];
+  private rowCounter=0;
+
   closeCommPopup() {
     this.showCommPopup=false;
   }
@@ -33,9 +40,6 @@ export class EntitySearchComponent {
   createEntity() {
     throw new Error('Method not implemented.');
   }
-
-  showSearchHistoryPopup = false;
-  searchHistory: any[] = [];
 
   openSearchHistoryPopup() {
     this.loadingHistory.set(true);
@@ -92,7 +96,6 @@ export class EntitySearchComponent {
       isic: new FormControl(''),
       primaryStockCode: new FormControl('',Validators.maxLength(20)),
   });
-  rows: any[] = [];
 
   handleSearch() {
     console.log("handleSearch");
@@ -127,9 +130,9 @@ export class EntitySearchComponent {
 
         // Check for new response format with status 'C' (Complete/Success)
         if (response.status === 'C' && response.errorCode === '0000') {
-          this.rows = response.data?.items ?? [];
-        }
-        else {
+          this.entities = response.data?.items ?? [];
+          console.log(this.entitiesArray);
+        } else {
           const errorMessage = response.errorDesc || 'Api Error';
         }
         this.loadingTable.set(false);
@@ -139,5 +142,24 @@ export class EntitySearchComponent {
         this.loadingTable.set(false);
       }
     });
+    console.log(this.entitiesArray);
+  }
+
+  onSort(event:any){
+    console.log(this.entitiesArray);
+    this.entitiesArray.controls.sort((a,b) =>{
+        const v1 = a.get(event.field)?.value;
+        const v2 = b.get(event.field)?.value;
+        if(v1==null) return -1;
+        if(v2==null) return 1;
+        return event.order * (v1 > v2 ? 1:-1);
+    });
+    this.entitiesArray.updateValueAndValidity();
+    // console.log(zipped);
+    // this.entities = zipped.map(z=>z.row);
+    // this.entitiesArray.clear();
+    // for(const z of zipped){
+    //   this.entitiesArray.push(z);
+    // }
   }
 }
