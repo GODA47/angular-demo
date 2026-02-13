@@ -47,7 +47,7 @@
               class="border-2 border-gray-200 rounded-md w-50 px-1"
               [class.border-red-500]="editForm.controls.primaryStockCode.invalid"
               [title]="editForm.controls.primaryStockCode.valid ? '':'Required when Listing Date is filled'"/>
-            @if (editForm.controls.listingDate.value !== ''){
+            @if (editForm.controls.listingDate.value !== '' && editForm.controls.primaryStockCode.value == ''){
                 <span class="max-w-50 h-fit text-[12px] text-red-500 pl-2 pt-1">Required when Listing Date is filled</span>
             }
           </div>

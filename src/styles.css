@@ -124,10 +124,19 @@ input[type=number] {
   font-size:13px;
   border-width: 0px 1px 1px 1px;
 }
+.p-datepicker-day{
+  font-size:13px;
+}
 .p-datepicker-other-month{
   opacity:0.3;
   pointer-events:none;
 }
+.p-datepicker-weekday{
+  font-size:14px;
+}
 .p-entity-datepicker{
   --p-datepicker-week-day-font-weight: 700;
+}
+.p-entity-datepicker.p-inputtext{
+  font-size: 14px;
 }
