@@ -11,7 +11,8 @@ import { TableModule } from 'primeng/table';
   styles: []
 })
 export class EntityInformationComponent {
-    
+    //TODO : Listing date into date picker
+    //TODO : Check Frim Type logic
     isOpen = false;
     isOpenBusiness = false;
     isOpenIndustry = false;
