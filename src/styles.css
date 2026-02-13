@@ -86,3 +86,48 @@ input[type=number] {
   border-width: 0px 0px 1px 0px;
   border-color: #e8e8e8;
 }
+.p-datepicker-calendar-container{
+  background-color: #FFFFFF;
+  font-size:14px;
+  border-width: 1px 1px 1px 1px;
+  /* border-collapse:collapse; */
+}
+.p-datepicker-calendar{
+  background-color: #FFFFFF;
+  font-size:14px;
+  /* border-width: 1px 1px 1px 1px; */
+  /* border-collapse:collapse; */
+}
+.p-datepicker-month{
+  background-color: #FFFFFF;
+  font-size:14px;
+  border-width: 1px 1px 1px 1px;
+  border-collapse:collapse;
+  border-color:#e8e8e8
+}
+.p-datepicker-month-view{
+  background-color: #FFFFFF;
+  font-size:14px;
+
+}
+.p-datepicker-header {
+  font-size:15px;
+  border-width: 0px 0px 1px 0px;
+  background-color:#e8e8e8;
+}
+.p-datepicker-day-view{
+  background-color: #FFFFFF;
+  border-width: 1px 0px 0px 0px;
+}
+.p-datepicker-year-view{
+  background-color: #FFFFFF;
+  font-size:13px;
+  border-width: 0px 1px 1px 1px;
+}
+.p-datepicker-other-month{
+  opacity:0.3;
+  pointer-events:none;
+}
+.p-entity-datepicker{
+  --p-datepicker-week-day-font-weight: 700;
+}

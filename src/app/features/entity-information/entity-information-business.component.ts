@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormArray, AbstractControl } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-entity-search',
   standalone: true,
-    imports: [ReactiveFormsModule, CommonModule, TableModule],
+    imports: [ReactiveFormsModule, CommonModule, TableModule, DatePickerModule],
   templateUrl: './entity-information-business.component.html',
   styles: []
 })
