@@ -40,6 +40,7 @@ export class EntityInformationComponent {
         this.industries.push({
             rowId: ++this.rowCounter
         });
+        console.log(this.editForm.value);
     }
     onSort(event:any){
         const zipped = this.industries.map((row,i)=>({
